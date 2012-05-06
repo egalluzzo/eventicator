@@ -1,3 +1,52 @@
-<% provide(:title, 'Home') %>
-<h1>Eventicator</h1>
-<p>This is the home page.</p>
+<div class="hero-unit">
+  <h1>Welcome to Eventicator!</h1>
+  <p>Eventicator is a web site for managing events.  It is especially suited
+    for events where multiple teams showcase projects they have made.
+  </p>
+  <a class="btn btn-large btn-primary" href="#">Sign up</a>
+</div>
+
+
+<div class="container">
+  <div class="row">
+    <div class="span9">
+      <h1>News <small>The latest info on your favorite projects</small></h1>
+      <div class="news-item">
+        <div class="avatar"><%= image_tag('http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg?s=64?d=mm', alt: "") %></div>
+        I've really been busy on my project.  It's like the coolest thing ever.
+        After working for days and days, I finally got the title bar to appear!
+        Yeah, I'm definitely going to win this year.
+        <div class="author">Posted by <a href="#">user</a> about <a href="#">project</a> 2 hours ago</div>
+      </div>
+      <div class="news-item">
+        <div class="avatar"><%= image_tag('http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg?s=64?d=mm', alt: "") %></div>
+        Totally stressed out.  Like, there's only two weeks to go and I just
+        wrote my first line of documentation.
+        <div class="author">Posted by <a href="#">user</a> about <a href="#">project</a> 2 hours ago</div>
+      </div>
+    </div>
+    <div class="span3">
+      <ul class="nav nav-list">
+        <li class="nav-header">Upcoming Events</li>
+        <li><a href="#">Camp IO</a> April 23</li>
+        <li><a href="#">Summer Meeting</a> June 2</li>
+        <li class="divider"></li>
+        <li class="pull-right"><a href="#">more &raquo;</a></li>
+      </ul>
+      <ul class="nav nav-list">
+        <li class="nav-header">My Projects</li>
+        <li><a href="#">Great Project</a></li>
+        <li><a href="#">Something Else</a></li>
+        <li class="divider"></li>
+        <li class="pull-right"><a href="#">more &raquo;</a></li>
+      </ul>
+      <ul class="nav nav-list">
+        <li class="nav-header">My Teams</li>
+        <li><a href="#">Team 1</a></li>
+        <li><a href="#">Team 2</a></li>
+        <li class="divider"></li>
+        <li class="pull-right"><a href="#">more &raquo;</a></li>
+      </ul>
+    </div>
+  </div>
+</div>

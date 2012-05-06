@@ -8,16 +8,17 @@ describe "Static pages" do
 
   describe "home page" do
 
-    before { visit "/static_pages/home" }
+    before { visit root_path }
 
     it { should have_selector('h1', text: "Eventicator") }
     it { should have_selector('title', text: "#{base_title}") }
-    #it { should_not have_selector('title', text: "| Home") }
+    it { should_not have_selector('title', text: "| Home") }
+    it { should have_selector('a', text: "Sign up") }
   end
 
   describe "about page" do
 
-    before { visit "/static_pages/about" }
+    before { visit about_path }
 
     it { should have_selector('h1', text: "About Eventicator") }
     it { should have_selector('title', text: "#{base_title} | About") }
@@ -25,7 +26,7 @@ describe "Static pages" do
 
   describe "help page" do
 
-    before { visit "/static_pages/help" }
+    before { visit help_path }
 
     it { should have_selector('h1', text: "Help") }
     it { should have_selector('title', text: "#{base_title} | Help") }

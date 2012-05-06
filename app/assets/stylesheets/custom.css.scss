@@ -1,0 +1,16 @@
+/* Bootstrap customization */
+$baseFontFamily: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$linkColor: #00a235;
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+
+#content {
+  margin-top: $navbarHeight;
+}
+
+.footer {
+  border-top: 2px solid $grayLighter;
+  padding-top: 20px;
+  color: $grayLight;
+}
