@@ -1,16 +1,74 @@
 /* Bootstrap customization */
+
 $baseFontFamily: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $linkColor: #00a235;
+
+/* Include Bootstrap */
 
 @import "bootstrap";
 @import "bootstrap-responsive";
 
+/* Custom mixins, variables, etc. */
+
+@mixin panel {
+  padding: 8px 0;
+  small {
+    font-size: $baseFontSize * 0.8;
+    color: $gray;
+    display: block;
+    float: right;
+  }
+  .nav-header {
+    letter-spacing: 1px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid $grayLighter;
+  }
+}
+
+/* Overall layout styles */
+
 #content {
-  margin-top: $navbarHeight;
+  margin-top: $navbarHeight + 20px;
 }
 
 .footer {
   border-top: 2px solid $grayLighter;
   padding-top: 20px;
   color: $grayLight;
+}
+
+.teams-panel {
+  @include panel;
+}
+
+.projects-panel {
+  @include panel;
+}
+
+.events-panel {
+  @include panel;
+}
+
+.more-link {
+  text-align: right;
+}
+
+.news-item {
+  border-top: 2px solid $grayLighter;
+  padding: 8px 0;
+  vertical-align: top;
+  &:last-child {
+    border-bottom: 2px solid $grayLighter;
+  }
+  .avatar {
+    display: inline-block;
+    width: 64px;
+  }
+  .news {
+    display: inline-block;
+  }
+  .author {
+    font-size: $baseFontSize * 0.8;
+    color: $grayLight;
+  }
 }
