@@ -10,10 +10,12 @@ $linkColor: #00a235;
 
 /* Custom mixins, variables, etc. */
 
+$smallerFontSize: $baseFontSize * 0.85;
+
 @mixin panel {
   padding: 8px 0;
   small {
-    font-size: $baseFontSize * 0.8;
+    font-size: $smallerFontSize;
     color: $gray;
     display: block;
     float: right;
@@ -50,6 +52,7 @@ $linkColor: #00a235;
 }
 
 .more-link {
+  border-top: 2px solid $grayLighter;
   text-align: right;
 }
 
@@ -61,14 +64,12 @@ $linkColor: #00a235;
     border-bottom: 2px solid $grayLighter;
   }
   .avatar {
-    display: inline-block;
-    width: 64px;
-  }
-  .news {
-    display: inline-block;
+    padding-right: 5px;
+    vertical-align: middle;
   }
   .author {
-    font-size: $baseFontSize * 0.8;
+    padding-top: 5px;
+    font-size: $smallerFontSize;
     color: $grayLight;
   }
 }
