@@ -16,6 +16,20 @@
         <div class="footer">
           <p>Copyright (c) 2012 Eric Galluzzo.  Some rights reserved.</p>
         </div>
+        <% if Rails.env.development? %>
+          <div class="accordion-group">
+            <div class="accordion-heading">
+              <a class="accordion-toggle" data-toggle="collapse" href="#debug-info">
+                Debugging Information
+              </a>
+            </div>
+            <div id="debug-info" class="accordion-body collapse">
+              <div class="accordion-inner">
+                <%= debug(params) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </body>

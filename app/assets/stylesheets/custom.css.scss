@@ -39,6 +39,11 @@ $smallerFontSize: $baseFontSize * 0.85;
   color: $grayLight;
 }
 
+.debug_dump {
+  background-color: transparent;
+  border: 0px;
+}
+
 .teams-panel {
   @include panel;
 }
