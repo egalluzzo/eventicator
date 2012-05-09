@@ -1,0 +1,50 @@
+<% provide(:title, "Profile | #{@user.name}") %>
+<div class="row">
+  <div class="span9">
+    <div class="profile">
+      <%= gravatar_for(@user, size: 100) %>
+      <div class="contact-info">
+        <h1><%= @user.name %></h1>
+        <div>(need contact info of some sort)</div>
+        <div>(social buttons here)</div>
+      </div>
+    </div>
+    <div class="news-feed">
+      <h2>News <small>The latest from <%= @user.name %></small></h2>
+      <div class="news-item">
+        <h3>Great News</h3>
+        <p>I've really been busy on my project.  It's like the coolest thing
+          ever.  After working for days and days, I finally got the title bar
+          to appear!  Yeah, I'm definitely going to win this year.</p>
+        <div class="author">Posted about <a href="#">project</a> 2 hours ago</div>
+      </div>
+      <div class="news-item">
+        <h3>Stressed Out</h3>
+        <p>Totally stressed out.  Like, there's only two weeks to go and I just
+          wrote my first line of documentation.</p>
+        <div class="author">Posted about <a href="#">project</a> 3 hours ago</div>
+      </div>
+    </div>
+  </div>
+  <div class="span3">
+    <div class="well teams-panel">
+      <ul class="nav nav-list">
+        <li class="nav-header">Member of</li>
+        <li><a href="#">Team 1</a></li>
+        <li><a href="#">Team 2</a></li>
+        <li class="divider"></li>
+        <li class="more-link"><a href="#">more &raquo;</a></li>
+      </ul>
+    </div>
+    <div class="well projects-panel">
+      <ul class="nav nav-list">
+        <li class="nav-header">Projects</li>
+        <li><a href="#">Project 1</a></li>
+        <li><a href="#">Project 2</a></li>
+        <li class="divider"></li>
+        <li class="more-link"><a href="#">more &raquo;</a></li>
+      </ul>
+    </div>
+    <div>(maybe Twitter feed here)</div>
+  </div>
+</div>

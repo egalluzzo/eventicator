@@ -78,3 +78,25 @@ $smallerFontSize: $baseFontSize * 0.85;
     color: $grayLight;
   }
 }
+
+/* Profile */
+
+.profile .avatar {
+  display: inline-block;
+  float: left;
+  @include border-radius(5px);
+  margin-right: 20px;
+  vertical-align: middle;
+  .contact-info {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.news-feed {
+  clear: both;
+  padding-top: 20px;
+  .news-item:last-child {
+    border-bottom: 0px;
+  }
+}
