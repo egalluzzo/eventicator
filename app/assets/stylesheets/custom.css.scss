@@ -61,6 +61,12 @@ $smallerFontSize: $baseFontSize * 0.85;
   text-align: right;
 }
 
+.underscored {
+  border-bottom: 2px solid $grayLighter;
+  padding-bottom: 5px;
+  margin-bottom: 16px;
+}
+
 .news-item {
   border-top: 2px solid $grayLighter;
   padding: 8px 0;
@@ -77,6 +83,18 @@ $smallerFontSize: $baseFontSize * 0.85;
     font-size: $smallerFontSize;
     color: $grayLight;
   }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
+.field-errors {
+  float: right;
+  display: inline-block;
+  padding-right: 14px;
+  @extend .error;
 }
 
 /* Profile */
