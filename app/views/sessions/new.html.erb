@@ -1,0 +1,23 @@
+<% provide(:title, "Log in") %>
+
+<div class="row">
+  <div class="span6 offset3">
+    <h1 class="underscored">Log in</h1>
+
+    <%= form_tag sessions_path do %>
+
+      <%= label_tag :email, "Email", class: "control-label" %>
+      <%= text_field_tag :email, params[:email], class: "input-large" %>
+
+      <%= label_tag :password, "Password", class: "control-label" %>
+      <%= password_field_tag :password, nil, class: "input-small" %>
+
+      <div class="form-actions">
+        <%= submit_tag "Log in", class: "btn btn-large btn-primary" %>
+      </div>
+
+    <% end %>
+
+  </div>
+</div>
+
