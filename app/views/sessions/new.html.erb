@@ -1,19 +1,34 @@
-<% provide(:title, "Log in") %>
+<% provide(:title, "Sign in") %>
 
 <div class="row">
-  <div class="span6 offset3">
-    <h1 class="underscored">Log in</h1>
+  <div class="span8 offset2">
+    <h1 class="underscored">Sign in</h1>
 
-    <%= form_tag sessions_path do %>
+    <%= form_tag(sessions_path, class: "form-horizontal") do %>
 
-      <%= label_tag :email, "Email", class: "control-label" %>
-      <%= text_field_tag :email, params[:email], class: "input-large" %>
+      <div class="control-group">
+        <%= label_tag :email, "Email", class: "control-label" %>
+        <div class="controls">
+          <%= text_field_tag :email, params[:email], class: "input-large" %>
+        </div>
+      </div>
 
-      <%= label_tag :password, "Password", class: "control-label" %>
-      <%= password_field_tag :password, nil, class: "input-small" %>
+      <div class="control-group">
+        <%= label_tag :password, "Password", class: "control-label" %>
+        <div class="controls">
+          <%= password_field_tag :password, nil, class: "input-small" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= label_tag :password, "Remember me?", class: "control-label" %>
+        <div class="controls">
+          <%= check_box_tag :remember_me, "true", params[:remember_me] %>
+        </div>
+      </div>
 
       <div class="form-actions">
-        <%= submit_tag "Log in", class: "btn btn-large btn-primary" %>
+        <%= submit_tag "Sign in", class: "btn btn-large btn-primary" %>
       </div>
 
     <% end %>

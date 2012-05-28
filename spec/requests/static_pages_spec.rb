@@ -10,10 +10,13 @@ describe "Static pages" do
 
     before { visit root_path }
 
-    it { should have_selector('h1', text: "Eventicator") }
-    it { should have_selector('title', text: "#{base_title}") }
+    it { should     have_selector('h1',    text: "Eventicator") }
+    it { should     have_selector('title', text: "#{base_title}") }
     it { should_not have_selector('title', text: "| Home") }
-    it { should have_selector('a', text: "Sign up") }
+    it { should     have_selector('a',     text: "Sign up") }
+
+    it { should     have_link('Sign in',  href: signin_path) }
+    it { should_not have_link('Sign out', href: signout_path) }
   end
 
   describe "about page" do

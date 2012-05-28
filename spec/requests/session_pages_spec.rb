@@ -4,22 +4,22 @@ describe "Session pages" do
 
   subject { page }
 
-  describe "login page" do
-    before { visit login_path }
+  describe "signin page" do
+    before { visit signin_path }
 
-    it { should have_selector('h1',    text: "Log in") }
-    it { should have_selector('title', text: "Log in") }
+    it { should have_selector('h1',    text: "Sign in") }
+    it { should have_selector('title', text: "Sign in") }
   end
 
-  describe "login process" do
-    before { visit login_path }
+  describe "signin process" do
+    before { visit signin_path }
 
-    let(:submit) { "Log in" }
+    let(:submit) { "Sign in" }
 
     describe "with blank data" do
       before { click_button submit }
 
-      it { should have_selector('title', text: "Log in") }
+      it { should have_selector('title', text: "Sign in") }
       it { should have_selector('.alert-error') }
 
       describe "after visiting another page" do
@@ -31,7 +31,7 @@ describe "Session pages" do
     describe "with valid email and password" do
       let(:user) { FactoryGirl.create(:user) }
       before do
-        visit login_path
+        visit signin_path
         fill_in "Email",    with: user.email
         fill_in "Password", with: user.password
         click_button submit
@@ -39,16 +39,16 @@ describe "Session pages" do
 
       it { should have_selector('title', text: "Profile | #{user.name}") }
 
-      it { should have_link('Users',    href: users_path) }
+      # it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile',  href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
-      it { should have_link('Log out',  href: logout_path) }
+      it { should have_link('Sign out', href: signout_path) }
 
-      it { should_not have_link('Log in', href: login_path) }
+      it { should_not have_link('Sign in', href: signin_path) }
 
-      describe "followed by logout" do
-        before { click_link "Logout" }
-        it { should have_link('Log in') }
+      describe "followed by sign out" do
+        before { click_link "Sign out" }
+        it { should have_link('Sign in') }
       end
     end
   end
