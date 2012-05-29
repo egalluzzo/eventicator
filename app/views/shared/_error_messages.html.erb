@@ -1,0 +1,7 @@
+<% if @user.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-error">
+      Please correct the <%= pluralize(@user.errors.count, "error") %> below.
+    </div>
+  </div>
+<% end %>

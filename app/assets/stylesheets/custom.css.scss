@@ -1,6 +1,7 @@
 /* Bootstrap customization */
 
 $baseFontFamily: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
+$sansFontFamily: Lato, "Helvetica Neue", Helvetica, Arial, sans-serif;
 $linkColor: #00a235;
 
 /* Include Bootstrap */
@@ -11,6 +12,10 @@ $linkColor: #00a235;
 /* Custom mixins, variables, etc. */
 
 $smallerFontSize: $baseFontSize * 0.85;
+
+@mixin font-family-sans-serif() {
+  font-family: $sansFontFamily;
+}
 
 @mixin panel {
   padding: 8px 0;
@@ -36,6 +41,10 @@ $smallerFontSize: $baseFontSize * 0.85;
 .footer {
   border-top: 2px solid $grayLighter;
   padding-top: 20px;
+  color: $grayLight;
+}
+
+.help-block {
   color: $grayLight;
 }
 
