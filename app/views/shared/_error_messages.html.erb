@@ -1,7 +1,9 @@
-<% if @user.errors.any? %>
+<% if model.errors.any? %>
   <div id="error_explanation">
     <div class="alert alert-error">
-      Please correct the <%= pluralize(@user.errors.count, "error") %> below.
+      <% # Using the following rather than pluralize since I don't want the count. %>
+      Please correct the <%= (model.errors.count > 1) ? "errors" : "error" %>
+      below.
     </div>
   </div>
 <% end %>

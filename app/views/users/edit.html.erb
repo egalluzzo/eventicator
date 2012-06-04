@@ -4,7 +4,7 @@
   <div class="span8 offset2">
     <h1 class="underscored">Update your profile</h1>
     <%= simple_form_for(@user, html: { class: 'form-horizontal' }) do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/error_messages', model: @user %>
 
       <div class="control-group">
         <label class="control-label">Picture</label>
