@@ -28,6 +28,15 @@ describe "Session pages" do
       end
     end
 
+    describe "without signing in" do
+      it { should have_link('Sign in', href: signin_path) }
+
+      it { should_not have_link('Profile') }
+      it { should_not have_link('Settings') }
+      it { should_not have_link('Sign out', href: signout_path) }
+      it { should_not have_link('Users',    href: users_path) }
+    end
+
     describe "with valid email and password" do
       let(:user) { FactoryGirl.create(:user) }
       before do
@@ -39,12 +48,12 @@ describe "Session pages" do
 
       it { should have_selector('title', text: "Profile | #{user.name}") }
 
-      # it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile',  href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
       it { should have_link('Sign out', href: signout_path) }
 
       it { should_not have_link('Sign in', href: signin_path) }
+      it { should_not have_link('Users',   href: users_path) }
 
       describe "followed by sign out" do
         before { click_link "Sign out" }
@@ -70,6 +79,19 @@ describe "Session pages" do
 
           it "should render the desired protected page" do
             page.should have_selector('title', text: 'Edit Profile')
+          end
+
+          describe "when signing in again" do
+            before do
+              visit signin_path
+              fill_in "Email",    with: user.email
+              fill_in "Password", with: user.password
+              click_button "Sign in"
+            end
+
+            it "should render the default (profile) page" do
+              page.should have_selector('title', text: user.name) 
+            end
           end
         end
       end
@@ -117,6 +139,17 @@ describe "Session pages" do
 
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
+        specify { response.should redirect_to(root_path) }        
+      end
+    end
+
+    describe "as admin user" do
+      let(:admin) { FactoryGirl.create(:admin) }
+
+      before { sign_in admin }
+
+      describe "submitting a DELETE request to the Users#destroy action for themselves" do
+        before { delete user_path(admin) }
         specify { response.should redirect_to(root_path) }        
       end
     end

@@ -9,20 +9,14 @@
       <div class="control-group">
         <label class="control-label">Picture</label>
         <div class="controls">
-          <a id="avatar_change_link" href="http://gravatar.com/emails"><%= gravatar_for @user %></a>
+          <a id="avatar_change_link"
+             href="http://gravatar.com/emails"
+             target="_blank"><%= gravatar_for @user %></a>
           <p class="help-block">This is your Gravatar.  Click on the image to change it.</p>
         </div>
       </div>
 
-      <%= f.input :name,
-                  input_html: { class: "input-large" } %>
-      <%= f.input :email,
-                  input_html: { class: "input-large" } %>
-      <%= f.input :password,
-                  input_html: { class: "input-small" } %>
-      <%= f.input :password_confirmation,
-                  label: "Confirmation",
-                  input_html: { class: "input-small" } %>
+      <%= render 'fields', f: f %>
 
       <div class="form-actions">
         <%= f.submit "Save changes", class: "btn btn-large btn-primary" %>

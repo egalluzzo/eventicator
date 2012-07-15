@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :not_signed_in,  only: [:new, :create]
   before_filter :signed_in_user, only: [:index, :edit, :update, :destroy]
   before_filter :correct_user,   only: [:edit, :update]
   before_filter :admin_user,     only: [:destroy]
@@ -42,12 +43,20 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User deleted."
-    redirect_to users_path
+    user = User.find(params[:id])
+    if (user == current_user)
+      redirect_to root_path, error: "Cannot delete the logged-in user."
+    else
+      user.destroy
+      redirect_to users_path, success: "User deleted."
+    end
   end
 
   private
+
+    def not_signed_in
+      redirect_to(root_path) if signed_in?
+    end
 
     def signed_in_user
       unless signed_in?
