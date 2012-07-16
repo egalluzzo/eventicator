@@ -3,10 +3,11 @@ require 'spec_helper'
 describe Event do
 
   before do
-    @event = Event.new(name:       "Google I/O 2012",
-                       location:   "1600 Amphitheatre Parkway\nMountain View, CA 94043",
-                       start_date: Date.civil(2012, 6, 27),
-                       end_date:   Date.civil(2012, 6, 29))
+    @event = Event.new(name:        "Google I/O 2012",
+                       location:    "1600 Amphitheatre Parkway\nMountain View, CA 94043",
+                       description: "Find out about everything Google is currently up to.",
+                       start_date:  Date.civil(2012, 6, 27),
+                       end_date:    Date.civil(2012, 6, 29))
   end
 
   subject { @event }
@@ -46,6 +47,11 @@ describe Event do
 
   describe "when location is too long" do
     before { @event.location = "a" * 251 }
+    it { should_not be_valid }
+  end
+
+  describe "when description is too long" do
+    before { @event.description = "a" * 2001 }
     it { should_not be_valid }
   end
 
