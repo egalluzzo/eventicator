@@ -65,7 +65,8 @@ describe "Session pages" do
   describe "authorization" do
 
     describe "for non-signed-in users" do
-      let(:user) { FactoryGirl.create(:user) }
+      let(:user)  { FactoryGirl.create(:user) }
+      let(:event) { FactoryGirl.create(:event) }
 
       describe "when attempting to visit a protected page" do
         before do
@@ -113,6 +114,29 @@ describe "Session pages" do
           it { should have_selector('title', text: 'Sign in') }
         end
       end
+
+      describe "in the Events controller" do
+
+        describe "submitting a POST request to the Events#create action" do
+          before { post events_path }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "submitting a PUT request to the Events#edit action" do
+          before { put events_path(event) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "submitting a DELETE request to the Events#destroy action" do
+          before { delete events_path(event) }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+
+        describe "visiting the user index" do
+          before { visit events_path }
+          it { should have_selector('title', text: 'Sign in') }
+        end
+      end
     end
 
     describe "as wrong user" do
@@ -133,12 +157,33 @@ describe "Session pages" do
 
     describe "as non-admin user" do
       let(:user) { FactoryGirl.create(:user) }
+      let(:event) { FactoryGirl.create(:event) }
       let(:non_admin) { FactoryGirl.create(:user) }
 
       before { sign_in non_admin }
 
+      describe "submitting a POST request to the Users#create action" do
+        before { post users_path }
+        specify { response.should redirect_to(root_path) }
+      end
+
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
+        specify { response.should redirect_to(root_path) }        
+      end
+
+      describe "submitting a POST request to the Events#create action" do
+        before { post events_path }
+        specify { response.should redirect_to(root_path) }
+      end
+
+      describe "submitting a PUT request to the Events#update action" do
+        before { put events_path(event) }
+        specify { response.should redirect_to(root_path) }
+      end
+
+      describe "submitting a DELETE request to the Events#destroy action" do
+        before { delete events_path(event) }
         specify { response.should redirect_to(root_path) }        
       end
     end
