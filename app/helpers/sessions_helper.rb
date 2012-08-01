@@ -38,5 +38,28 @@ module SessionsHelper
   def store_location
     session[:return_to] = request.fullpath
   end
+
+  # The following methods are intended to be used as before_filters in
+  # controllers.
+
+  def not_signed_in
+    redirect_to(root_path) if signed_in?
+  end
+
+  def signed_in_user
+    unless signed_in?
+      store_location
+      redirect_to signin_path, notice: "Please sign in."
+    end
+  end
+
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_path) unless current_user?(@user)
+  end
+
+  def admin_user
+    redirect_to(root_path) unless current_user.admin?
+  end
 end
 

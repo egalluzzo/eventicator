@@ -132,7 +132,7 @@ describe "Session pages" do
           it { should have_selector('title', text: 'Sign in') }
         end
 
-        describe "visiting the user index" do
+        describe "visiting the list of events" do
           before { visit events_path }
           it { should have_selector('title', text: 'Sign in') }
         end

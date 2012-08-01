@@ -13,7 +13,11 @@ describe "Event pages" do
   end
 
   describe "creating a new event" do
-    before { visit new_event_path }
+    let(:admin) { FactoryGirl.create(:admin) }
+    before do
+      sign_in admin
+      visit new_event_path
+    end
 
     it { should have_selector('h1',    text: 'Create Event') }
     it { should have_selector('title', text: 'Create Event') }
