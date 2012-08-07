@@ -1,22 +1,35 @@
 <% provide(:title, "#{@event.name}") %>
 <div class="row">
   <div class="span9">
-    <h1 class="underscored"><%= @event.name %></h1>
-    <div class="event-description">
-      <%= simple_format(@event.description) %>
+    <div class="hero-unit">
+      <h1><%= @event.name %></h1>
+      <div class="event-description">
+        <%= simple_format(@event.description) %>
+      </div>
+      <div>(social buttons here)</div>
+      <% if (signed_in? && current_user.admin?) %>
+        <div class="management-buttons">
+          <%= link_to edit_event_path(@event), title: "Edit" do %>
+            <i class="icon-pencil"></i>
+          <% end %>
+          <%= link_to @event,
+                      method: :delete,
+                      title: "Delete",
+                      data: { confirm: "Are you sure you want to delete this event?" } do %>
+            <i class="icon-trash"></i>
+          <% end %>
+        </div>
+      <% end %>
     </div>
-    <div>(social buttons here)</div>
+
     <h2 class="underscored">Agenda</h2>
-    <div class="event-talks">
-      <!-- FIXME: Styling is not currently working right -->
-      <div class="event-talk">
-        <span class="start-time">9:00</span>
-        <span class="details"><a href="foo">Talk 1</a> by <a href="user">Speaker 1</a></span>
-      </div>
-      <div class="event-talk">
-        <span class="start-time">10:00</span>
-        <span class="details"><a href="foo">Talk 2</a> by <a href="user">Speaker 2</a></span>
-      </div>
+    <div class="event-talk row">
+      <div class="start-time span1">9:00</div>
+      <div class="details span8"><a href="foo">Talk 1</a> by <a href="user">Speaker 1</a></div>
+    </div>
+    <div class="event-talk row">
+      <div class="start-time span1">10:00</div>
+      <div class="details span8"><a href="foo">Talk 2</a> by <a href="user">Speaker 2</a></div>
     </div>
   </div>
 
@@ -26,13 +39,7 @@
       <%= simple_format(@event.location) %>
     </div>
     <div class="event-map">
-      <iframe width="100%" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?q=<%= url_encode(@event.location) %>&amp;ie=UTF8&amp;t=m&amp;z=15&amp;output=embed"></iframe>
-      <br />
-      <small><a href="https://maps.google.com/?q=<%= url_encode(@event.location) %>&amp;ie=UTF8&amp;t=m&amp;z=15&amp;source=embed">View Larger Map</a></small>
-      <!--
-      FIXME: This should work, add test cases for map_for
       <%= map_for(@event.location) %>
-      -->
     </div>
     <h3 class="underscored">Attending</h3>
     <div class="event-registered-users">

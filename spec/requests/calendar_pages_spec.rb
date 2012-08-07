@@ -4,11 +4,16 @@ describe "Calendar" do
 
   subject { page }
 
-  describe "January 2013" do
-    before { visit "/calendar/2013/01" }
-    it { should have_content( "January 2013" ) }
-    it { should have_link( "December" ) }
-    it { should have_link( "February" ) }
-    # FIXME: Test the presence of an event.
+  describe "showing an event" do
+    let(:event) { FactoryGirl.create(:event) }
+    before do
+      visit "/calendar/#{event.start_date.year}/#{event.start_date.month}"
+    end
+
+    it { should have_content(event.start_date.year.to_s) }
+    it { should have_content(event.name) }
+    (1..28).each do |n|
+      it { should have_content(n.to_s) }
+    end
   end
 end

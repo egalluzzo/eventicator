@@ -123,12 +123,12 @@ describe "Session pages" do
         end
 
         describe "submitting a PUT request to the Events#edit action" do
-          before { put events_path(event) }
+          before { put event_path(event) }
           it { should have_selector('title', text: 'Sign in') }
         end
 
         describe "submitting a DELETE request to the Events#destroy action" do
-          before { delete events_path(event) }
+          before { delete event_path(event) }
           it { should have_selector('title', text: 'Sign in') }
         end
 

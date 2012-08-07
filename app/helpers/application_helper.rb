@@ -22,10 +22,10 @@ module ApplicationHelper
                          scrolling: 'no',
                          marginheight: '0',
                          marginwidth: '0',
-                         src: "https://maps.google.com/?q=#{url_encode(address)}&amp;ie=UTF8&amp;t=m&amp;z=15&amp;output=embed")
+                         src: "https://maps.google.com/?q=#{url_encode(address)}&ie=UTF8&t=m&z=15&output=embed")
     if options[:show_larger_map_link]
       result += tag(:br) + link_to(options[:larger_map_link_text],
-                                   "https://maps.google.com/?q=#{url_encode(address)}&amp;ie=UTF8&amp;t=m&amp;z=15&amp;source=embed")
+                                   "https://maps.google.com/?q=#{url_encode(address)}&ie=UTF8&t=m&z=15&source=embed")
     end
     result
   end
