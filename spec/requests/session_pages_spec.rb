@@ -117,24 +117,24 @@ describe "Session pages" do
 
       describe "in the Events controller" do
 
-        describe "submitting a POST request to the Events#create action" do
-          before { post events_path }
+        describe "visiting the edit page" do
+          before { visit edit_event_path(event) }
           it { should have_selector('title', text: 'Sign in') }
         end
 
-        describe "submitting a PUT request to the Events#edit action" do
+        describe "submitting a POST request to the Events#create action" do
+          before { post events_path }
+          specify { response.should redirect_to(signin_path) }
+        end
+
+        describe "submitting a PUT request to the Events#update action" do
           before { put event_path(event) }
-          it { should have_selector('title', text: 'Sign in') }
+          specify { response.should redirect_to(signin_path) }
         end
 
         describe "submitting a DELETE request to the Events#destroy action" do
           before { delete event_path(event) }
-          it { should have_selector('title', text: 'Sign in') }
-        end
-
-        describe "visiting the list of events" do
-          before { visit events_path }
-          it { should have_selector('title', text: 'Sign in') }
+          specify { response.should redirect_to(signin_path) }
         end
       end
     end
@@ -178,12 +178,12 @@ describe "Session pages" do
       end
 
       describe "submitting a PUT request to the Events#update action" do
-        before { put events_path(event) }
+        before { put event_path(event) }
         specify { response.should redirect_to(root_path) }
       end
 
       describe "submitting a DELETE request to the Events#destroy action" do
-        before { delete events_path(event) }
+        before { delete event_path(event) }
         specify { response.should redirect_to(root_path) }        
       end
     end

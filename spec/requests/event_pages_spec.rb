@@ -4,6 +4,69 @@ describe "Event pages" do
 
   subject { page }
 
+  describe "index" do
+
+    before(:all) { 31.times { FactoryGirl.create(:event) } }
+    after(:all)  { Event.delete_all }
+
+    before(:each) do
+      visit events_path
+    end
+
+    it { should have_selector('title', text: 'All events') }
+    it { should have_selector('h1',    text: 'All events') }
+
+    describe "pagination" do
+
+      it { should have_selector('div.pagination') }
+
+      it "should list each event" do
+        Event.page(1).order('name ASC').each do |event|
+          page.should have_selector('li', text: event.name)
+        end
+      end
+    end
+
+    describe "buttons and links" do
+
+      it { should have_link('Calendar') }
+      it { should_not have_link('Create Event') }
+      it { should_not have_link('Edit') }
+      it { should_not have_link('Delete') }
+
+      describe "clicking Calendar" do
+        before { click_link "Calendar" }
+        it { should have_selector('title', text: "Event Calendar") }
+      end
+
+      describe "as an admin user" do
+        let(:admin) { FactoryGirl.create(:admin) }
+        before do
+          sign_in admin
+          visit events_path
+        end
+
+        it { should have_link('Calendar') }
+        it { should have_link('Create Event') }
+        it { should have_link('Edit',   href: edit_event_path(Event.first)) }
+        it { should have_link('Delete', href: event_path(Event.first)) }
+        it "should be able to delete an event" do
+          expect { click_link("delete-event-#{Event.first.id}") }.to change(Event, :count).by(-1)
+        end
+
+        describe "clicking Create Event" do
+          before { click_link "Create Event" }
+          it { should have_selector('title', text: "Create Event") }
+        end
+
+        describe "editing an event" do
+          before { click_link "edit-event-#{Event.first.id}" }
+          it { should have_selector('title', text: "Edit #{Event.first.name}") }
+        end
+      end
+    end
+  end
+
   describe "event page" do
     let(:event) { FactoryGirl.create(:event) }
 

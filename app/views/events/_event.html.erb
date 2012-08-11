@@ -1,0 +1,7 @@
+<li>
+  <%= link_to event.name, event %>
+  on <%= event.start_date.to_formatted_s(:long) %>
+  at <%= event.location %>
+  <%= render "management_icons", event: event %>
+</li>
+

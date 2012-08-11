@@ -7,19 +7,7 @@
         <%= simple_format(@event.description) %>
       </div>
       <div>(social buttons here)</div>
-      <% if (signed_in? && current_user.admin?) %>
-        <div class="management-buttons">
-          <%= link_to edit_event_path(@event), title: "Edit" do %>
-            <i class="icon-pencil"></i>
-          <% end %>
-          <%= link_to @event,
-                      method: :delete,
-                      title: "Delete",
-                      data: { confirm: "Are you sure you want to delete this event?" } do %>
-            <i class="icon-trash"></i>
-          <% end %>
-        </div>
-      <% end %>
+      <%= render "management_icons", event: @event %>
     </div>
 
     <h2 class="underscored">Agenda</h2>

@@ -1,0 +1,22 @@
+<%= provide(:title, 'All events') %>
+<h1 class="underscored">All events</h1>
+
+<div class="button-bar">
+  <%= link_to calendar_path, class: "btn" do %>
+    <i class="icon-calendar"></i> Calendar 
+  <% end %>
+  <% if signed_in? and current_user.admin? %>
+    <%= link_to new_event_path, class: "btn" do %>
+      <i class="icon-plus"></i> Create Event
+    <% end %>
+  <% end %>
+</div>
+
+<%= will_paginate %>
+
+<ul class="events">
+  <%= render @events %>
+</ul>
+
+<%= will_paginate %>
+

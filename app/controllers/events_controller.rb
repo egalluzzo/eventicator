@@ -2,6 +2,10 @@ class EventsController < ApplicationController
   before_filter :signed_in_user, only: [:new, :create, :edit, :update, :destroy]
   before_filter :admin_user,     only: [:new, :create, :edit, :update, :destroy]
 
+  def index
+    @events = Event.page(params[:page]).order('name ASC')
+  end
+
   def show
     @event = Event.find(params[:id])
   end

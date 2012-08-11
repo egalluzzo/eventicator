@@ -23,7 +23,16 @@
       <div class="span3">
         <div class="well events-panel">
           <ul class="nav nav-list">
-            <li class="nav-header">Upcoming Events</li>
+            <li class="nav-header">Upcoming Events
+              <div class="management-icons">
+                <%= link_to calendar_path do %>
+                  <i class="icon-calendar"></i>
+                <% end %>
+                <%= link_to events_path do %>
+                  <i class="icon-list"></i>
+                <% end %>
+              </div>
+            </li>
             <li><a href="#">Camp IO <small>April 23</small></a></li>
             <li><a href="#">Summer Meeting <small>June 2</small></a></li>
             <li class="more-link"><a href="#">more &raquo;</a></li>
