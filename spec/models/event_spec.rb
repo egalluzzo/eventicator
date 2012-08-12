@@ -17,6 +17,7 @@ describe Event do
   it { should respond_to(:description) }
   it { should respond_to(:start_date) }
   it { should respond_to(:end_date) }
+  it { should respond_to(:talks) }
 
   it { should be_valid }
 
