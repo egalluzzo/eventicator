@@ -9,5 +9,19 @@ class Talk < ActiveRecord::Base
   validates :start_at,    presence: true
   validates :end_at,      presence: true, comparison: { on_or_after: :start_at }
   validates :event_id,    presence: true
+
+  validate :must_start_on_or_after_event_start, :must_end_on_or_before_event_end
+
+  def must_start_on_or_after_event_start
+    if !start_at.nil? && start_at < event.start_date.to_datetime.midnight
+      errors.add(:start_at, "can't be before the start of the event")
+    end
+  end
+
+  def must_end_on_or_before_event_end
+    if !end_at.nil? && end_at >= event.end_date.to_datetime.tomorrow.midnight
+      errors.add(:end_at, "can't be after the end of the event")
+    end
+  end
 end
 

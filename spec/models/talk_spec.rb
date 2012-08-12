@@ -83,11 +83,10 @@ describe Talk do
     it { should_not be_valid }
   end
 
-  # FIXME: Make this pass
-#  describe "when start_at is before the start of the event" do
-#    before { @talk.start_at = event.start_date.yesterday.to_datetime.change({ hour: 23 }) }
-#    it { should_not be_valid }
-#  end
+  describe "when start_at is before the start of the event" do
+    before { @talk.start_at = event.start_date.yesterday.to_datetime.change({ hour: 23 }) }
+    it { should_not be_valid }
+  end
 
   describe "when end_at is not present" do
     before { @talk.end_at = nil }
@@ -99,9 +98,8 @@ describe Talk do
     it { should_not be_valid }
   end
 
-  # FIXME: Make this pass
-#  describe "when end_at is after the end of the event" do
-#    before { @talk.end_at = event.end_date.tomorrow.to_datetime.midnight }
-#    it { should_not be_valid }
-#  end
+  describe "when end_at is after the end of the event" do
+    before { @talk.end_at = event.end_date.tomorrow.to_datetime.midnight }
+    it { should_not be_valid }
+  end
 end
