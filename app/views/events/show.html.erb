@@ -10,7 +10,12 @@
       <%= render "management_icons", event: @event %>
     </div>
 
-    <h2 class="underscored">Agenda</h2>
+    <% if @event.talks.any? %>
+      <h2 class="underscored">Agenda</h2>
+      <!-- FIXME: Separate by day. -->
+      <%= render @event.talks %>
+    <% end %>
+    <!--
     <div class="event-talk row">
       <div class="start-time span1">9:00</div>
       <div class="details span8"><a href="foo">Talk 1</a> by <a href="user">Speaker 1</a></div>
@@ -19,6 +24,7 @@
       <div class="start-time span1">10:00</div>
       <div class="details span8"><a href="foo">Talk 2</a> by <a href="user">Speaker 2</a></div>
     </div>
+    -->
   </div>
 
   <div class="span3">

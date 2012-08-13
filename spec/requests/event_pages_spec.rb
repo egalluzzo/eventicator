@@ -69,6 +69,18 @@ describe "Event pages" do
 
   describe "event page" do
     let(:event) { FactoryGirl.create(:event) }
+    let!(:talk1) do
+      FactoryGirl.create(:talk,
+                         event:   event,
+                         title:   "Really Great Talk",
+                         speaker: "Stephen Hawking")
+    end
+    let!(:talk2) do
+      FactoryGirl.create(:talk,
+                         event:   event,
+                         title:   "Some Other Talk",
+                         speaker: "Forrest Gump")
+    end
 
     describe "without signing in" do
       before { visit event_path(event) }
@@ -77,6 +89,15 @@ describe "Event pages" do
       it { should have_selector('title', text: "#{event.name}") }
       it { should_not have_link('Edit') }
       it { should_not have_link('Delete') }
+
+      describe "showing talks" do
+        it { should have_content(talk1.start_at.strftime("%H:%M")) }
+        it { should have_content(talk1.title) }
+        it { should have_content(talk1.speaker) }
+        it { should have_content(talk2.start_at.strftime("%H:%M")) }
+        it { should have_content(talk2.title) }
+        it { should have_content(talk2.speaker) }
+      end
     end
 
     describe "after signing in as an admin" do
