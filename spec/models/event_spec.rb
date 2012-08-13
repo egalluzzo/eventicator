@@ -75,5 +75,30 @@ describe Event do
     before { @event.end_date = @event.start_date }
     it { should be_valid }
   end
+
+  describe "talks" do
+    before { @event.save }
+    let!(:later_talk) do
+      FactoryGirl.create(:talk,
+                         event:    @event,
+                         start_at: @event.start_date.to_datetime.change({hour: 11}),
+                         end_at:   @event.start_date.to_datetime.change({hour: 12}))
+    end
+    let!(:earlier_talk) do
+      FactoryGirl.create(:talk,
+                         event:    @event,
+                         start_at: @event.start_date.to_datetime.change({hour: 9}),
+                         end_at:   @event.start_date.to_datetime.change({hour: 10}))
+    end
+
+    it "should have its talks in the right order" do
+      talks = @event.talks
+      talks.should == [earlier_talk, later_talk]
+      @event.destroy
+      talks.each do |talk|
+        Talk.find_by_id(@talk.id).should be_nil
+      end
+    end
+  end
 end
 

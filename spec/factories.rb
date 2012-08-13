@@ -17,5 +17,15 @@ FactoryGirl.define do
     start_date  Date.civil(2012, 6, 27)
     end_date    Date.civil(2012, 6, 29)
   end
+
+  factory :talk do
+    sequence(:title) { |n| "Talk #{n}" }
+    description "Don't miss this fabulous talk about something of which I have yet to think!"
+    speaker     "Joe Schmo"
+    room        "Room 101"
+    start_at    DateTime.civil(2012, 6, 27, 9, 0, 0)
+    end_at      DateTime.civil(2012, 6, 27, 11, 30, 0)
+    event
+  end
 end
 

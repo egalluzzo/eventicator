@@ -1,6 +1,6 @@
 class Event < ActiveRecord::Base
   attr_accessible :name, :location, :description, :start_date, :end_date
-  has_many :talks
+  has_many :talks, dependent: :destroy
 
   has_event_calendar :start_at_field  => 'start_date', :end_at_field => 'end_date'
 
