@@ -1,12 +1,12 @@
 <% if (signed_in? && current_user.admin?) %>
   <div class="management-icons">
-    <%= link_to edit_event_path(event), id: "edit-event-#{event.id}", title: "Edit" do %>
+    <%= link_to edit_event_path(event), id: "edit-event-#{event.id}", title: "Edit Event" do %>
       <i class="icon-pencil"></i>
     <% end %>
     <%= link_to event,
                 method: :delete,
                 id: "delete-event-#{event.id}",
-                title: "Delete",
+                title: "Delete Event",
                 data: { confirm: "Are you sure you want to delete this event?" } do %>
       <i class="icon-trash"></i>
     <% end %>

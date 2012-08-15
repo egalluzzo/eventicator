@@ -30,7 +30,7 @@ describe "Event pages" do
     describe "buttons and links" do
 
       it { should have_link('Calendar') }
-      it { should_not have_link('Create Event') }
+      it { should_not have_link('New Event') }
       it { should_not have_link('Edit') }
       it { should_not have_link('Delete') }
 
@@ -47,16 +47,16 @@ describe "Event pages" do
         end
 
         it { should have_link('Calendar') }
-        it { should have_link('Create Event') }
+        it { should have_link('New Event') }
         it { should have_link('Edit',   href: edit_event_path(Event.first)) }
         it { should have_link('Delete', href: event_path(Event.first)) }
         it "should be able to delete an event" do
           expect { click_link("delete-event-#{Event.first.id}") }.to change(Event, :count).by(-1)
         end
 
-        describe "clicking Create Event" do
-          before { click_link "Create Event" }
-          it { should have_selector('title', text: "Create Event") }
+        describe "clicking New Event" do
+          before { click_link "New Event" }
+          it { should have_selector('title', text: "New Event") }
         end
 
         describe "editing an event" do
@@ -87,8 +87,8 @@ describe "Event pages" do
 
       it { should have_selector('h1',    text: event.name) }
       it { should have_selector('title', text: "#{event.name}") }
-      it { should_not have_link('Edit') }
-      it { should_not have_link('Delete') }
+      it { should_not have_link('Edit Event') }
+      it { should_not have_link('Delete Event') }
 
       describe "showing talks" do
         it { should have_content(talk1.start_at.strftime("%H:%M")) }
@@ -109,17 +109,19 @@ describe "Event pages" do
 
       it { should have_selector('h1',    text: event.name) }
       it { should have_selector('title', text: "#{event.name}") }
-      it { should have_link('Edit',   href: edit_event_path(event)) }
-      it { should have_link('Delete', href: event_path(event)) }
+      it { should have_link('Edit Event',   href: edit_event_path(event)) }
+      it { should have_link('Delete Event', href: event_path(event)) }
+      # FIXME: Make this pass.
+      # it { should have_link('New Talk',     href: create_talk_path(event)) }
 
-      describe "clicking Edit goes to the Edit page" do
-        before { click_link "Edit" }
+      describe "clicking Edit Event goes to the Edit page" do
+        before { click_link "Edit Event" }
 
         it { should have_selector('h1', text: "Edit #{event.name}") }
       end
 
-      it "should delete the event when clicking Delete" do
-        expect { click_link "Delete" }.to change(Event, :count).by(-1)
+      it "should delete the event when clicking Delete Event" do
+        expect { click_link "Delete Event" }.to change(Event, :count).by(-1)
       end
     end
   end
@@ -131,8 +133,8 @@ describe "Event pages" do
       visit new_event_path
     end
 
-    it { should have_selector('h1',    text: 'Create Event') }
-    it { should have_selector('title', text: 'Create Event') }
+    it { should have_selector('h1',    text: 'New Event') }
+    it { should have_selector('title', text: 'New Event') }
 
     describe "with invalid information" do
       it "should not create an event" do
@@ -142,7 +144,7 @@ describe "Event pages" do
       describe "after submission" do
         before { click_button 'Create' }
 
-        it { should have_selector('title', text: 'Create Event') }
+        it { should have_selector('title', text: 'New Event') }
         it { should have_content("can't be") }
       end
     end
