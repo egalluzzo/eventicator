@@ -18,6 +18,7 @@ describe Event do
   it { should respond_to(:start_date) }
   it { should respond_to(:end_date) }
   it { should respond_to(:talks) }
+  it { should respond_to(:date_range) }
 
   it { should be_valid }
 
@@ -98,6 +99,24 @@ describe Event do
       talks.each do |talk|
         Talk.find_by_id(@talk.id).should be_nil
       end
+    end
+  end
+
+  describe "first_n" do
+    before(:all) do
+      7.downto(1) do |n|
+        FactoryGirl.create(:event,
+                           start_date: Date.today.to_datetime.advance( months: n - 1, days: -1 ),
+                           end_date:   Date.today.to_datetime.advance( months: n - 1 ))
+      end
+    end
+
+    it "should return the next five talks in the right order" do
+      first_5_events = Event.first_n(5)
+      first_5_events.count.should == 5
+      first_5_events[0].end_date.should == Date.today
+      first_5_events[1].end_date.should == Date.today.advance( months: 1 )
+      first_5_events[4].end_date.should == Date.today.advance( months: 4 )
     end
   end
 end

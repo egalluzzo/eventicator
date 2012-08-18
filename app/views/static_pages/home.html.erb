@@ -33,9 +33,15 @@
                 <% end %>
               </div>
             </li>
-            <li><a href="#">Camp IO <small>April 23</small></a></li>
-            <li><a href="#">Summer Meeting <small>June 2</small></a></li>
-            <li class="more-link"><a href="#">more &raquo;</a></li>
+            <% @first_5_events.each do |event| %>
+              <li>
+                <%= link_to event do %>
+                  <%= event.name %>
+                  <small><%= event.start_date.strftime('%B %-d') %></small>
+                <% end %>
+              </li>
+            <% end %>
+            <li class="more-link"><a href="<%= events_path %>">more &raquo;</a></li>
           </ul>
         </div>
         <div class="well projects-panel">
@@ -58,11 +64,19 @@
     </div>
   </div>
 <% else %>
-  <div class="hero-unit">
-    <h1>Welcome to Eventicator!</h1>
-    <p>Eventicator is a web site for managing events.  It is especially suited
-      for events where multiple teams showcase projects they have made.
-    </p>
-    <%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %>
+  <div class="row">
+    <div class="span8">
+      <div class="hero-unit">
+        <h1>Welcome to Eventicator!</h1>
+        <p>Eventicator is a web site for managing events.  It is especially suited
+          for events where multiple teams showcase projects they have made.
+        </p>
+        <%= link_to "Sign up", signup_path, class: "btn btn-large btn-primary" %>
+      </div>
+    </div>
+    <div class="span4">
+      <h3 class="underscored">Already registered?</h3>
+      <%= render "sessions/signin" %>
+    </div>
   </div>
 <% end %>

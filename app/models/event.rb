@@ -10,6 +10,10 @@ class Event < ActiveRecord::Base
   validates :start_date,  presence: true
   validates :end_date,    presence: true, comparison: { on_or_after: :start_date }
 
+  def self.first_n(n)
+    Event.where('end_date >= ?', Date.today).order('start_date ASC').limit(n)
+  end
+
   def date_range
     DateRange.new(start_date, end_date)
   end
