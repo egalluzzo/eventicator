@@ -89,6 +89,7 @@ describe "Event pages" do
       it { should have_selector('title', text: "#{event.name}") }
       it { should_not have_link('Edit Event') }
       it { should_not have_link('Delete Event') }
+      it { should_not have_link('Add Talk') }
 
       describe "showing talks" do
         it { should have_content(talk1.start_at.strftime("%H:%M")) }
@@ -111,8 +112,7 @@ describe "Event pages" do
       it { should have_selector('title', text: "#{event.name}") }
       it { should have_link('Edit Event',   href: edit_event_path(event)) }
       it { should have_link('Delete Event', href: event_path(event)) }
-      # FIXME: Make this pass.
-      # it { should have_link('New Talk',     href: create_talk_path(event)) }
+      it { should have_link('Add Talk',     href: "#{new_talk_path}?event_id=#{event.id}") }
 
       describe "clicking Edit Event goes to the Edit page" do
         before { click_link "Edit Event" }

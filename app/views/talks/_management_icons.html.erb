@@ -1,0 +1,15 @@
+<% if signed_in_as_admin? %>
+  <div class="management-icons">
+    <%= link_to edit_talk_path(talk), id: "edit-talk-#{talk.id}", title: "Edit Talk" do %>
+      <i class="icon-pencil"></i>
+    <% end %>
+    <%= link_to talk,
+                method: :delete,
+                id: "delete-talk-#{talk.id}",
+                title: "Delete Talk",
+                data: { confirm: "Are you sure you want to delete this talk?" } do %>
+      <i class="icon-trash"></i>
+    <% end %>
+  </div>
+<% end %>
+

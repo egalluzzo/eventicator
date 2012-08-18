@@ -1,0 +1,17 @@
+<%= provide(:title, 'New Talk') %>
+
+<div class="row">
+  <div class="span8 offset2">
+    <h1 class="underscored">New Talk</h1>
+    <%= simple_form_for(@talk, html: { class: 'form-horizontal' }) do |f| %>
+      <%= render 'shared/error_messages', model: @talk %>
+
+      <%= render 'fields', f: f %>
+      <input type="hidden" name="event_id" value="<%= @talk.event_id %>" />
+
+      <div class="form-actions">
+        <%= f.submit "Create", class: "btn btn-large btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

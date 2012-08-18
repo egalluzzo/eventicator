@@ -9,5 +9,9 @@ class Event < ActiveRecord::Base
   validates :description, length: { maximum: 2000 }
   validates :start_date,  presence: true
   validates :end_date,    presence: true, comparison: { on_or_after: :start_date }
+
+  def date_range
+    DateRange.new(start_date, end_date)
+  end
 end
 

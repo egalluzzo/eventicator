@@ -3,28 +3,27 @@
   <div class="span9">
     <div class="hero-unit">
       <h1><%= @event.name %></h1>
+      <p class="event-date-range"><%= @event.date_range.to_s %></p>
       <div class="event-description">
         <%= simple_format(@event.description) %>
       </div>
+
       <div>(social buttons here)</div>
       <%= render "management_icons", event: @event %>
     </div>
 
-    <% if @event.talks.any? %>
+    <% if @event.talks.any? || signed_in_as_admin? %>
       <h2 class="underscored">Agenda</h2>
+      <% if signed_in_as_admin? %>
+        <div class="button-bar">
+          <%= link_to "#{new_talk_path}?event_id=#{@event.id}", class: 'btn' do %>
+            <i class="icon-plus"></i> Add Talk
+          <% end %>
+        </div>
+      <% end %>
       <!-- FIXME: Separate by day. -->
       <%= render @event.talks %>
     <% end %>
-    <!--
-    <div class="event-talk row">
-      <div class="start-time span1">9:00</div>
-      <div class="details span8"><a href="foo">Talk 1</a> by <a href="user">Speaker 1</a></div>
-    </div>
-    <div class="event-talk row">
-      <div class="start-time span1">10:00</div>
-      <div class="details span8"><a href="foo">Talk 2</a> by <a href="user">Speaker 2</a></div>
-    </div>
-    -->
   </div>
 
   <div class="span3">

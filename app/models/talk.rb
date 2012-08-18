@@ -3,7 +3,7 @@ class Talk < ActiveRecord::Base
   belongs_to :event
 
   validates :title,       presence: true, length: { maximum: 100 }
-  validates :speaker,     presence: true, length: { maximum: 50 }
+  validates :speaker,     length: { maximum: 50 }
   validates :room,        length: { maximum: 50 }
   validates :description, length: { maximum: 2000 }
   validates :start_at,    presence: true

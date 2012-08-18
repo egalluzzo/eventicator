@@ -5,7 +5,7 @@
   <%= link_to calendar_path, class: "btn" do %>
     <i class="icon-calendar"></i> Calendar 
   <% end %>
-  <% if signed_in? and current_user.admin? %>
+  <% if signed_in_as_admin? %>
     <%= link_to new_event_path, class: "btn" do %>
       <i class="icon-plus"></i> New Event
     <% end %>

@@ -1,0 +1,45 @@
+<% provide(:title, "#{@talk.title}") %>
+<div class="row">
+  <div class="span9">
+    &laquo; <%= link_to @talk.event.name, @talk.event %>
+    <h1 class="underscored">
+      <%= @talk.title %>
+      <%= render "management_icons", talk: @talk %>
+    </h1>
+    <% if !@talk.description.empty? %>
+      <div class="talk-description">
+        <%= simple_format(@talk.description) %>
+      </div>
+    <% end %>
+
+    <div>(social buttons here)</div>
+  </div>
+
+  <div class="span3">
+    <h3 class="underscored">Facts</h3>
+    <table class="table table-bordered table-striped">
+      <tbody>
+        <tr>
+          <th>Time</th>
+          <td>
+            <%= @talk.start_at.strftime('%H:%M') %> -
+            <%= @talk.end_at.strftime('%H:%M') %>
+            on <%= @talk.start_at.to_date.to_formatted_s(:long) %>
+          </td>
+        </tr>
+        <% if !@talk.speaker.empty? %>
+          <tr>
+            <th>Speaker</th>
+            <td><%= @talk.speaker %></td>
+          </tr>
+        <% end %>
+        <% if !@talk.room.empty? %>
+          <tr>
+            <th>Room</th>
+            <td><%= @talk.room %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

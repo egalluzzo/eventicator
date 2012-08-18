@@ -1,0 +1,30 @@
+<%= f.input :start_at,    as: :string,
+                          input_html: { id:    "talk_start_at",
+                                        value: @talk.start_at.strftime('%Y-%m-%d %H:%M'),
+                                        class: "input-medium" } %>
+<%= f.input :end_at,      as: :string,
+                          input_html: { id:    "talk_end_at",
+                                        value: @talk.end_at.strftime('%Y-%m-%d %H:%M'),
+                                        class: "input-medium" } %>
+<%= f.input :title,       input_html: { class: "input-xlarge" } %>
+<%= f.input :speaker,     input_html: { class: "input-large" } %>
+<%= f.input :room,        input_html: { class: "input-large" } %>
+<%= f.input :description, input_html: { class: "input-xlarge", rows: 10 } %>
+
+<script type="text/javascript">
+  var timepickerOptions = {
+    dateFormat: "yy-mm-dd",
+    timeFormat: "hh:mm tt",
+    minDate:    new Date(<%= @talk.event.start_date.year %>,
+                         <%= @talk.event.start_date.month - 1 %>,
+                         <%= @talk.event.start_date.day %>,
+                         0, 0),
+    maxDate:    new Date(<%= @talk.event.end_date.year %>,
+                         <%= @talk.event.end_date.month - 1 %>,
+                         <%= @talk.event.end_date.day %>,
+                         23, 59),
+    stepMinute: 5
+  };
+  $('#talk_start_at').datetimepicker(timepickerOptions);
+  $('#talk_end_at').datetimepicker(timepickerOptions);
+</script>

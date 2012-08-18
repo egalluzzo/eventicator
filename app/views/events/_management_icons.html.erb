@@ -1,4 +1,4 @@
-<% if (signed_in? && current_user.admin?) %>
+<% if signed_in_as_admin? %>
   <div class="management-icons">
     <%= link_to edit_event_path(event), id: "edit-event-#{event.id}", title: "Edit Event" do %>
       <i class="icon-pencil"></i>

@@ -50,7 +50,7 @@ describe Talk do
 
   describe "when speaker is not present" do
     before { @talk.speaker = nil }
-    it { should_not be_valid }
+    it { should be_valid }
   end
 
   describe "when speaker is too long" do
