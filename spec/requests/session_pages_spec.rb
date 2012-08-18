@@ -46,7 +46,7 @@ describe "Session pages" do
         click_button submit
       end
 
-      it { should have_selector('title', text: "Profile | #{user.name}") }
+      it { should have_selector('h1', text: "News") }
 
       it { should have_link('Profile',  href: user_path(user)) }
       it { should have_link('Settings', href: edit_user_path(user)) }
@@ -90,8 +90,8 @@ describe "Session pages" do
               click_button "Sign in"
             end
 
-            it "should render the default (profile) page" do
-              page.should have_selector('title', text: user.name) 
+            it "should render the default (home) page" do
+              page.should have_selector('h1', text: 'News') 
             end
           end
         end
