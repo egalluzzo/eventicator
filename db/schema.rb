@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812003231) do
+ActiveRecord::Schema.define(:version => 20120819021758) do
 
   create_table "events", :force => true do |t|
     t.string   "name"
@@ -24,6 +24,25 @@ ActiveRecord::Schema.define(:version => 20120812003231) do
   end
 
   add_index "events", ["start_date", "end_date"], :name => "index_events_on_start_date_and_end_date"
+
+  create_table "invitations", :force => true do |t|
+    t.integer  "event_id"
+    t.integer  "inviting_user_id"
+    t.integer  "invited_user_id"
+    t.string   "invited_email"
+    t.boolean  "accepted"
+    t.boolean  "attended"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "token"
+  end
+
+  add_index "invitations", ["event_id", "accepted"], :name => "index_invitations_on_event_id_and_accepted"
+  add_index "invitations", ["event_id", "invited_email"], :name => "index_invitations_on_event_id_and_invited_email", :unique => true
+  add_index "invitations", ["event_id", "invited_user_id"], :name => "index_invitations_on_event_id_and_invited_user_id", :unique => true
+  add_index "invitations", ["event_id"], :name => "index_invitations_on_event_id"
+  add_index "invitations", ["invited_user_id"], :name => "index_invitations_on_invited_user_id"
+  add_index "invitations", ["token"], :name => "index_invitations_on_token"
 
   create_table "talks", :force => true do |t|
     t.string   "title"

@@ -1,12 +1,20 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation,
                   :password_reset_sent_at
+  has_many :sent_invitations,
+           foreign_key: 'inviting_user_id',
+           class_name: 'Invitation',
+           dependent: :destroy
+  has_many :received_invitations,
+           foreign_key: 'invited_user_id',
+           class_name: 'Invitation',
+           dependent: :destroy
   has_secure_password
 
   before_create { generate_token(:remember_token) }
   before_save { |user| user.email = email.downcase }
 
-  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /^.+@.+\..+$/ # See http://www.ruby-forum.com/topic/205779
   validates :name,  presence: true, length: { maximum: 50 }
   validates :email, presence: true, format: { with: VALID_EMAIL_REGEX },
                     uniqueness: { case_sensitive: false }
@@ -16,6 +24,6 @@ class User < ActiveRecord::Base
   def generate_token(column)
     begin
       self[column] = SecureRandom.urlsafe_base64
-    end while User.exists?(column => self[column])
+    end while self.class.exists?(column => self[column])
   end
 end

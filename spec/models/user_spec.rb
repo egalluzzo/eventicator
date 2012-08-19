@@ -17,6 +17,8 @@ describe User do
   it { should respond_to(:password_reset_sent_at) }
   it { should respond_to(:remember_token) }
   it { should respond_to(:admin) }
+  it { should respond_to(:sent_invitations) }
+  it { should respond_to(:received_invitations) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }
