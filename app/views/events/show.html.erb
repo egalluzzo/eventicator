@@ -2,14 +2,16 @@
 <div class="row">
   <div class="span9">
     <div class="hero-unit">
-      <h1><%= @event.name %></h1>
-      <p class="event-date-range"><%= @event.date_range.to_s %></p>
+      <h1>
+        <%= @event.name %>
+        <%= render "management_icons", event: @event %>
+      </h1>
+      <p class="event-dates"><%= @event.date_range.to_s %></p>
       <div class="event-description">
         <%= simple_format(@event.description) %>
       </div>
-
       <div>(social buttons here)</div>
-      <%= render "management_icons", event: @event %>
+      <%= render 'invitation' %>
     </div>
 
     <% if @event.talks.any? || signed_in_as_admin? %>

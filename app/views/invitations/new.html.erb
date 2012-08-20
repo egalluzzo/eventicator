@@ -1,0 +1,21 @@
+<% provide(:title, "Invite Friends to #{@invitation.event.name}") %>
+
+<div class="row">
+  <div class="span8 offset2">
+    <h1 class="underscored">Invite Friends to <%= @invitation.event.name %></h1>
+    <%= simple_form_for(@invitation, html: { class: 'form-horizontal' }) do |f| %>
+      <%= render 'shared/error_messages', model: @invitation %>
+
+      <input type="hidden" name="event_id" value="<%= @invitation.event.id %>" />
+      <%= f.hidden_field :inviting_user_id %>
+      <%= f.input :invited_email,
+                  as: :text,
+                  label: 'To',
+                  hint: 'Separate email addresses with commas.',
+                  input_html: { rows: '3', width: '100%' } %>
+      <div class="form-actions">
+        <%= f.submit "Send invitations", class: "btn btn-large btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

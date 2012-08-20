@@ -42,4 +42,8 @@ class Invitation < ActiveRecord::Base
       self[column] = SecureRandom.urlsafe_base64
     end while self.class.exists?(column => self[column])
   end
+
+  def send
+    InvitationMailer.invitation_email(self).deliver
+  end
 end

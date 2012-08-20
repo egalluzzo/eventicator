@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+      <%= @invitation.inviting_user.name %> has invited you to attend
+      <%= @invitation.event.name %>.  To accept or decline this invitation,
+      just visit the following URL:
+    </p>
+    <p>
+      <%= link_to @url, @url %>
+    </p>
+    <p>
+      Thanks for using Eventicator!
+    </p>
+  </body>
+</html>

@@ -8,6 +8,13 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    if signed_in? && @event
+      invitations = @event.invitations.where(invited_user_id: current_user.id)
+      # Highlander (there can be only one).
+      if !invitations.empty?
+        @invitation = invitations[0]
+      end
+    end
   end
 
   def new

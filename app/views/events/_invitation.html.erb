@@ -1,0 +1,61 @@
+<% if !@invitation.nil? %>
+  <div class="event-invitation">
+    <% if @invitation.accepted.nil? %>
+      <div class="invitation-question">
+        Would you like to accept the invitation from
+        <%= @invitation.inviting_user.name %>?
+        <div class="invitation-response-button">
+          <%= form_for(@invitation, url: invitation_path(@invitation.token)) do |f| %>
+            <input type="hidden" name="invitation[accepted]" value="true" />
+            <input type="submit" value="Accept" class="btn btn-success" />
+          <% end %>
+        </div>
+        <div class="invitation-response-button">
+          <%= form_for(@invitation, url: invitation_path(@invitation.token)) do |f| %>
+            <input type="hidden" name="invitation[accepted]" value="false" />
+            <input type="submit" value="Decline" class="btn btn-danger" />
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <% if @invitation.accepted? %>
+        <i class="icon-ok-sign"></i> I plan to attend.
+      <% else %>
+        <i class="icon-remove-sign"></i> I do not plan to attend.
+      <% end %>
+      <%= render 'invite_friends' %>
+    <% end %>
+  </div>
+<% else %>
+  <% if signed_in? %>
+    <!--
+    FIXME: Why isn't this outputting the hidden fields correctly?
+    <%= form_for(@event.invitations.build(inviting_user_id: current_user.id,
+                                          invited_user_id:  current_user.id,
+                                          accepted:         true)) do |f| %>
+      <input type="hidden" name="event_id" value="<%= @event.id %>" />
+      <% f.hidden_field :inviting_user_id %>
+      <% f.hidden_field :invited_user_id %>
+      <% f.hidden_field :accepted %>
+      <% f.submit "Register", class: "btn btn-large btn-primary" %>
+    <% end %>
+    -->
+    <div class="event-registration">
+      <div class="invitation-response-button">
+        <%= form_for(@event.invitations.build(inviting_user_id: current_user.id,
+                                              invited_user_id:  current_user.id,
+                                              accepted:         true)) do |f| %>
+          <input type="hidden" name="event_id" value="<%= @event.id %>" />
+          <input type="hidden" name="invitation[inviting_user_id]"
+                 value="<%= current_user.id %>" />
+          <input type="hidden" name="invitation[invited_user_id]"
+                 value="<%= current_user.id %>" />
+          <input type="hidden" name="invitation[accepted]" value="true" />
+          <input type="submit" name="commit" value="Register"
+                 class="btn btn-large btn-primary" />
+        <% end %>
+      </div>
+      <%= render 'invite_friends' %>
+    </div>
+  <% end %>
+<% end %>
