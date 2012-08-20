@@ -40,8 +40,10 @@ class InvitationsController < ApplicationController
     if @invitation.nil?
       redirect_to root_path, error: "Could not find your invitation, sorry!"
     else
-      @invitation.invited_user = current_user
-      @invitation.invited_email = nil
+      if @invitation.invited_user.nil?
+        @invitation.invited_user = current_user
+        @invitation.invited_email = nil
+      end
       if !@invitation.save
         flash[:error] = "Could not prepare your invitation."
       end
