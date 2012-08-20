@@ -23,15 +23,15 @@ class InvitationsController < ApplicationController
         invitation = event.invitations.build(inviting_user_id: current_user.id,
                                              invited_email:    email)
         if invitation.save
-          invitation.send
+          invitation.send_email
         else
           rejected_emails << email
         end
         if !rejected_emails.empty?
-          flash.now[:error] = "Could not send emails to #{rejected_emails.join(', ')}"
+          flash[:error] = "Could not send emails to #{rejected_emails.join(', ')}"
         end
       end
-      render event
+      redirect_to event_path(event)
     end
   end
 
@@ -42,7 +42,10 @@ class InvitationsController < ApplicationController
     else
       @invitation.invited_user = current_user
       @invitation.invited_email = nil
-      render @invitation.event
+      if !@invitation.save
+        flash[:error] = "Could not prepare your invitation."
+      end
+      redirect_to event_path(@invitation.event)
     end
   end
 

@@ -43,7 +43,7 @@ class Invitation < ActiveRecord::Base
     end while self.class.exists?(column => self[column])
   end
 
-  def send
+  def send_email
     InvitationMailer.invitation_email(self).deliver
   end
 end
