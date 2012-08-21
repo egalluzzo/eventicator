@@ -19,6 +19,9 @@ class Invitation < ActiveRecord::Base
     if (!invitation.invited_email.nil?)
       invitation.invited_email = invitation.invited_email.downcase
     end
+    # FIXME: This should probably not be in before_save.  Also, need to
+    #        validate uniqueness of [:event_id, :invited_email] or
+    #        [:event_id, :invited_user_id].
     if (invitation.invited_user.nil?)
       invitation.invited_user = User.find_by_email(invitation.invited_email)
     end

@@ -11,19 +11,14 @@
     </div>
     <div class="news-feed">
       <h2>News <small>The latest from <%= @user.name %></small></h2>
-      <div class="news-item">
-        <h3>Great News</h3>
-        <p>I've really been busy on my project.  It's like the coolest thing
-          ever.  After working for days and days, I finally got the title bar
-          to appear!  Yeah, I'm definitely going to win this year.</p>
-        <div class="author">Posted about <a href="#">project</a> 2 hours ago</div>
-      </div>
-      <div class="news-item">
-        <h3>Stressed Out</h3>
-        <p>Totally stressed out.  Like, there's only two weeks to go and I just
-          wrote my first line of documentation.</p>
-        <div class="author">Posted about <a href="#">project</a> 3 hours ago</div>
-      </div>
+      <% if @user == current_user %>
+        <div class="button-bar">
+          <%= link_to new_post_path, class: "btn btn-primary" do %>
+            <i class="icon-plus"></i> New Post
+          <% end %>
+        </div>
+      <% end %>
+      <%= render @user.posts.limit(5), show_user: false %>
     </div>
   </div>
   <div class="span4">

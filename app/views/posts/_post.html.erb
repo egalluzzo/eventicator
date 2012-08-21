@@ -1,0 +1,18 @@
+<div class="news-item">
+  <h3>
+    <%= link_to post.title, post %>
+    <%= render "posts/management_icons", post: post %>
+  </h3>
+  <%= simple_format(post.content[0..300]) %>
+  <% if post.content.length > 300 %>
+    <%= link_to post do %>Read more &raquo;<% end %>
+  <% end %>
+  <div class="author">
+    Posted
+    <% if show_user %>
+      by <%= link_to post.user.name, post.user %>
+    <% end %>
+    <!-- about <a href="#">project</a> -->
+    <%= time_ago_in_words(post.updated_at) %> ago
+  </div>
+</div>

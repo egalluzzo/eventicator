@@ -3,6 +3,7 @@ Eventicator::Application.routes.draw do
   resources :events
   resources :talks
   resources :invitations
+  resources :posts
   resources :sessions, only: [:new, :create, :destroy]
 
   root to: "static_pages#home"

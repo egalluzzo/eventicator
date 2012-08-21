@@ -19,6 +19,7 @@ describe User do
   it { should respond_to(:admin) }
   it { should respond_to(:sent_invitations) }
   it { should respond_to(:received_invitations) }
+  it { should respond_to(:posts) }
   it { should respond_to(:authenticate) }
 
   it { should be_valid }

@@ -1,0 +1,16 @@
+<%= provide(:title, 'New Talk') %>
+
+<div class="row">
+  <div class="span8 offset2">
+    <h1 class="underscored">New Post</h1>
+    <%= simple_form_for(@post, html: { class: 'form-horizontal' }) do |f| %>
+      <%= render 'shared/error_messages', model: @post %>
+
+      <%= render 'fields', f: f %>
+
+      <div class="form-actions">
+        <%= f.submit "Submit post", class: "btn btn-large btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

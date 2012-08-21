@@ -4,19 +4,14 @@
       <div class="span8">
         <div class="news-feed">
           <h1>News <small>The latest info on your favorite projects</small></h1>
-          <div class="news-item">
-            <h3>Great News</h3>
-            <p>I've really been busy on my project.  It's like the coolest thing
-              ever.  After working for days and days, I finally got the title bar
-              to appear!  Yeah, I'm definitely going to win this year.</p>
-            <div class="author"><%= image_tag('http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg?s=32?d=mm', alt: "", class: 'avatar') %>Posted by <a href="#">user</a> about <a href="#">project</a> 2 hours ago</div>
-          </div>
-          <div class="news-item">
-            <h3>Stressed Out</h3>
-            <p>Totally stressed out.  Like, there's only two weeks to go and I just
-              wrote my first line of documentation.</p>
-            <div class="author"><%= image_tag('http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50.jpg?s=32?d=mm', alt: "", class: 'avatar') %>Posted by <a href="#">user</a> about <a href="#">project</a> 3 hours ago</div>
-          </div>
+          <% if signed_in? %>
+            <div class="button-bar">
+              <%= link_to new_post_path, class: "btn btn-primary" do %>
+                <i class="icon-plus"></i> New Post
+              <% end %>
+            </div>
+          <% end %>
+          <%= render Post.limit(5), show_user: true %>
         </div>
       </div>
 

@@ -1,14 +1,15 @@
 class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation,
                   :password_reset_sent_at
-  has_many :sent_invitations,
-           foreign_key: 'inviting_user_id',
-           class_name: 'Invitation',
-           dependent: :destroy
-  has_many :received_invitations,
-           foreign_key: 'invited_user_id',
-           class_name: 'Invitation',
-           dependent: :destroy
+
+  has_many :posts,                dependent:   :destroy
+  has_many :sent_invitations,     foreign_key: 'inviting_user_id',
+                                  class_name:  'Invitation',
+                                  dependent:   :destroy
+  has_many :received_invitations, foreign_key: 'invited_user_id',
+                                  class_name:  'Invitation',
+                                  dependent:   :destroy
+
   has_secure_password
 
   before_create { generate_token(:remember_token) }

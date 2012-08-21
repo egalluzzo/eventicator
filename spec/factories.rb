@@ -27,5 +27,10 @@ FactoryGirl.define do
     end_at      DateTime.civil(2012, 6, 27, 11, 30, 0)
     event
   end
-end
 
+  factory :post do
+    sequence(:title) { |n| "Post #{n}" }
+    content "This is my wonderful blog post.  It's so wonderful I can barely contain my (hitherto bounded) excitement."
+    user
+  end
+end

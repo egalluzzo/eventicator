@@ -1,0 +1,22 @@
+<% provide(:title, @post.title) %>
+<h1 class="underscored"><%= @post.title %></h1>
+<% if signed_in_as_admin? || @post.user == current_user %>
+  <div class="button-bar">
+    <%= link_to edit_post_path(@post), class: "btn" do %>
+      <i class="icon-pencil"></i> Edit Post
+    <% end %>
+    <%= link_to @post,
+                method: :delete,
+                title: "Delete Post",
+                class: "btn",
+                data: { confirm: "Are you sure you want to delete this post?" } do %>
+      <i class="icon-trash"></i> Delete Post
+    <% end %>
+  </div>
+<% end %>
+<%= simple_format(@post.content) %>
+<div class="author">
+  Posted by <%= link_to @post.user.name, @post.user %>
+  <!-- about <a href="#">project</a> -->
+  <%= time_ago_in_words(@post.updated_at) %> ago
+</div>
