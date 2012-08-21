@@ -19,6 +19,8 @@ describe Event do
   it { should respond_to(:end_date) }
   it { should respond_to(:talks) }
   it { should respond_to(:invitations) }
+  it { should respond_to(:accepted_invitations) }
+  it { should respond_to(:accepted_users) }
   it { should respond_to(:date_range) }
 
   it { should be_valid }
@@ -100,6 +102,30 @@ describe Event do
       talks.each do |talk|
         Talk.find_by_id(@talk.id).should be_nil
       end
+    end
+  end
+
+  describe "accepted_invitations and accepted_users" do
+    let(:event)             { FactoryGirl.create(:event) }
+    let(:inviting_user)     { FactoryGirl.create(:user) }
+    let(:accepted_user)     { FactoryGirl.create(:user) }
+    let(:non_accepted_user) { FactoryGirl.create(:user) }
+    let!(:accepted_invitation) do
+      event.invitations.create(inviting_user_id: inviting_user.id,
+                               invited_user_id:  accepted_user.id,
+                               accepted:         true)
+    end
+    let!(:non_accepted_invitation) do
+      event.invitations.create(inviting_user_id: inviting_user.id,
+                               invited_user_id:  non_accepted_user.id)
+    end
+
+    it "should only have one accepted invitation" do
+      event.accepted_invitations.should == [accepted_invitation]
+    end
+
+    it "should only have one accepted user" do
+      event.accepted_users.should == [accepted_user]
     end
   end
 

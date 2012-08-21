@@ -1,6 +1,6 @@
 <% provide(:title, "#{@event.name}") %>
 <div class="row">
-  <div class="span9">
+  <div class="span8">
     <div class="hero-unit">
       <h1>
         <%= @event.name %>
@@ -28,7 +28,7 @@
     <% end %>
   </div>
 
-  <div class="span3">
+  <div class="span4">
     <h3 class="underscored">Location</h3>
     <div class="event-location">
       <%= simple_format(@event.location) %>
@@ -36,9 +36,11 @@
     <div class="event-map">
       <%= map_for(@event.location) %>
     </div>
-    <h3 class="underscored">Attending</h3>
+    <h3 class="underscored">Registered</h3>
     <div class="event-registered-users">
-      (registered users here)
+      <% @event.accepted_users.order('updated_at DESC').limit(30).each do |accepted_user| %>
+        <%= link_to accepted_user do %><%= gravatar_for(accepted_user, size: 32) %><% end %>
+      <% end %>
     </div>
   </div>
 </div>

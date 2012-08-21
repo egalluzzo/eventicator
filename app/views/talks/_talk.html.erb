@@ -1,6 +1,6 @@
 <div class="event-talk row">
   <div class="start-time span1"><%= talk.start_at.strftime('%H:%M') %></div>
-  <div class="details span8">
+  <div class="details span7">
     <%= link_to talk.title, talk %>
     <% if !(talk.speaker.nil? or talk.speaker.empty?) %>
       by <%= talk.speaker %>

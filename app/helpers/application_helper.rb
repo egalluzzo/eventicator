@@ -11,7 +11,7 @@ module ApplicationHelper
   end
 
   # Shows a map of the given address.
-  def map_for(address, options = { height: '200',
+  def map_for(address, options = { height: '250',
                                    width: '100%',
                                    show_larger_map_link: true,
                                    larger_map_link_text: 'View Larger Map' })
