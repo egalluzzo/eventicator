@@ -17,18 +17,28 @@ class InvitationsController < ApplicationController
     else
       # @invitation.invited_email can be a list of email addresses, so we need
       # to separate these by commas and optional spaces.
-      emails = params[:invitation][:invited_email].split(%r{,\s*})
-      rejected_emails = []
-      emails.each do |email|
-        invitation = event.invitations.build(inviting_user_id: current_user.id,
-                                             invited_email:    email)
-        if invitation.save
-          invitation.send_email
-        else
-          rejected_emails << email
+      # Alternatively, we could be creating an invitation for ourselves or
+      # another user.
+      invited_email = params[:invitation][:invited_email]
+      if invited_email.nil?
+        invitation = event.invitations.build(params[:invitation])
+        unless invitation.save
+          flash[:error] = "Could not register for this event."
         end
-        if !rejected_emails.empty?
-          flash[:error] = "Could not send emails to #{rejected_emails.join(', ')}"
+      else
+        emails = invited_email.split(%r{,\s*})
+        rejected_emails = []
+        emails.each do |email|
+          invitation = event.invitations.build(inviting_user_id: current_user.id,
+                                               invited_email:    email)
+          if invitation.save
+            invitation.send_email
+          else
+            rejected_emails << email
+          end
+          if !rejected_emails.empty?
+            flash[:error] = "Could not send emails to #{rejected_emails.join(', ')}"
+          end
         end
       end
       redirect_to event_path(event)
